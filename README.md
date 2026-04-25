@@ -96,7 +96,7 @@ docchat/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/docchat.git
+git clone https://github.com:frdrckcabrera/docchat.git
 cd docchat
 ```
 
