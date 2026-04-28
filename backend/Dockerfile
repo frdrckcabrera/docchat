@@ -1,11 +1,7 @@
-FROM python:3.11-slim
+FROM public.ecr.aws/lambda/python:3.11
 
-WORKDIR /app
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+# Install system dependencies (Amazon Linux 2 uses microdnf)
+RUN microdnf install -y gcc && microdnf clean all
 
 # Install Python dependencies
 COPY requirements.txt .
@@ -17,6 +13,4 @@ COPY app ./app
 # Pre-download the embedding model so it's baked into the image
 RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
 
-EXPOSE 8000
-
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["app.main.handler"]

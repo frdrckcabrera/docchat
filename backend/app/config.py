@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     embedding_model: str = "all-MiniLM-L6-v2"
 
     # Database
-    database_path: str = "./docchat.db"
+    database_path: str = "/tmp/docchat.db"
 
     # Chunking
     chunk_size: int = 500
