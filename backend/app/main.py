@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 
 from app.config import settings
 from app.db.database import init_db
@@ -52,3 +53,6 @@ async def root() -> dict[str, str]:
 async def health() -> dict[str, str]:
     """Health check endpoint for monitoring and deployment."""
     return {"status": "ok"}
+
+
+handler = Mangum(app, lifespan="on")
